@@ -14,4 +14,4 @@ GraphQL API automation framework built using Bruno.
 ## Run
 
 ```bash
-bru run
+bru run --env QA

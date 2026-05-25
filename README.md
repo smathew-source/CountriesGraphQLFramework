@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Countries GraphQL Bruno Framework
 
 GraphQL API automation framework built using Bruno.
@@ -15,3 +16,6 @@ GraphQL API automation framework built using Bruno.
 
 ```bash
 bru run --env QA
+=======
+Countries GraphQL Framework
+>>>>>>> def6a1f (Create README.md)

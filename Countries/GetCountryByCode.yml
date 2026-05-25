@@ -1,0 +1,74 @@
+info:
+  name: GetCountryByCode
+  type: graphql
+  seq: 2
+
+graphql:
+  method: POST
+  url: "{{base_URL}}"
+  body:
+    query: |-
+      query getCountryCode($code: ID!)
+      {
+        country(code: $code)
+        {
+          code
+          capital
+          currency
+          continent{
+            name
+            code
+          }
+          languages
+          {
+            name
+          }
+        }
+      }
+    variables: |-
+      {
+        "code": "{{countryCode}}"
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        const generic1 = require("./Utils/Generic");
+        const validations = require("./Tests/graphqlValidations");
+        const envHelpers = require("./Utils/envHelpers");
+        const json = res.getBody();
+        test("Country exists", function () {
+            expect(json.data.country)
+                .to.not.equal(null);
+        });
+
+        const jsonresponse = res.getBody();
+        generic1.validateStatus200();
+        validations.validateCountryExists(jsonresponse);
+
+        test("Country code matches", function () {
+            expect(json.data.country.code)
+                .to.equal(bru.getEnvVar("countryCode"))});
+
+
+
+        const continentCode =
+            json.data.country.continent.code;
+
+        bru.setEnvVar(
+            "continentCode",
+            continentCode
+        );
+
+        console.log(
+            "Captured continent:",
+            continentCode
+        );
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

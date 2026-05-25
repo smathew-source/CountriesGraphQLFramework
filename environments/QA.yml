@@ -1,0 +1,8 @@
+name: QA
+variables:
+  - name: base_URL
+    value: https://countries.trevorblades.com/
+  - name: countryCode
+    value: GB
+  - name: continentCode
+    value: Europe

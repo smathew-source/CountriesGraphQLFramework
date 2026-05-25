@@ -1,0 +1,58 @@
+info:
+  name: GetCountries
+  type: graphql
+  seq: 1
+
+graphql:
+  method: POST
+  url: "{{base_URL}}"
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    query: |-
+      query {
+        countries
+        {
+        code
+        name
+        capital
+          continent{
+            code
+            name	
+          }
+      }
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        //const generic= require("./Tests/common");
+        const validations = require("./Tests/graphQLValidations");
+        const envHelpers =
+            require("./utils/envHelpers");
+
+        test("Status should be 200", function(){
+          expect(res.getStatus()).to.equal(200);
+        })
+        const json = res.getBody();
+        test("Countries list returnes Pass", function(){
+          expect(res.getBody().data.countries.length).to.be.greaterThan(0);
+        });
+        const firstCountry = json.data.countries[0].code;
+        envHelpers.setCountryCode(firstCountry);
+        //bru.setEnvVar("countryCode", firstCountry);
+
+
+        console.log(
+            "Captured country",
+            bru.getEnvVar("countryCode")
+        );
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

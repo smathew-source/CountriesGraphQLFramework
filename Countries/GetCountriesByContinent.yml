@@ -1,0 +1,51 @@
+info:
+  name: GetCountriesByContinent
+  type: graphql
+  seq: 3
+
+graphql:
+  method: POST
+  url: "{{base_URL}}"
+  body:
+    query: |-
+      query GetCountryByContinent($code: ID!)
+      {
+        continent(code: $code)
+        {
+          code
+          name
+          countries
+          {
+            code
+            name
+            capital
+          }
+        }
+      }
+    variables: |-
+      {
+        "code": "{{continentCode}}"
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        const json = res.getBody();
+        test("Continent exists", function () {
+            expect(json.data.continent)
+                .to.not.equal(null);
+        });
+
+        test("Countries exist", function () {
+            expect(
+                json.data.continent.countries.length
+            ).to.be.greaterThan(0);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

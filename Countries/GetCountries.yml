@@ -44,8 +44,6 @@ runtime:
         const firstCountry = json.data.countries[0].code;
         envHelpers.setCountryCode(firstCountry);
         //bru.setEnvVar("countryCode", firstCountry);
-
-
         console.log(
             "Captured country",
             bru.getEnvVar("countryCode")

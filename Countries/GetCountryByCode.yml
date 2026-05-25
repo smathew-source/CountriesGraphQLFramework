@@ -51,12 +51,8 @@ runtime:
         test("Country code matches", function () {
             expect(json.data.country.code)
                 .to.equal(bru.getEnvVar("countryCode"))});
-
-
-
         const continentCode =
             json.data.country.continent.code;
-
         bru.setEnvVar(
             "continentCode",
             continentCode

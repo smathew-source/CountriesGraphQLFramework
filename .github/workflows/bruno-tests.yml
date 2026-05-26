@@ -25,4 +25,5 @@ jobs:
         run: npm install -g @usebruno/cli
 
       - name: Run Bruno Tests
-        run: bru run --env QA
+        working-directory: ./
+        run: bru run . --env QA

@@ -16,4 +16,3 @@ jobs:
 
       - name: Run Countries GraphQL tests
         run: bru run Countries --env QA --sandbox=developer
-        working-directory: ./CountriesGraphQLFramework

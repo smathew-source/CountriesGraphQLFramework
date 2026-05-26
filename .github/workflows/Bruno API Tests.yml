@@ -1,31 +1,19 @@
-name: Bruno GraphQL Tests
+name: Bruno API Tests
 
 on:
   push:
-    branches:
-      - main
-
   pull_request:
-    branches:
-      - main
-
-  workflow_dispatch:
 
 jobs:
-  brunotests:
+  bruno-tests:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
+      - uses: actions/checkout@v4
 
       - name: Install Bruno CLI
         run: npm install -g @usebruno/cli
 
-      - name: Run Bruno Tests
-        run: bru run . --env QA
+      - name: Run Countries GraphQL tests
+        run: bru run Countries --env QA --sandbox=developer
+        working-directory: ./CountriesGraphQLFramework

@@ -1,11 +1,15 @@
-name: Bruno Tests
+name: Bruno API Tests
 
 on:
   push:
-  workflow_dispatch:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  run-bruno-tests:
+  bruno-tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,5 +25,4 @@ jobs:
         run: npm install -g @usebruno/cli
 
       - name: Run Bruno Tests
-        working-directory: ./
-        run: bru run . --env QA
+        run: bru run --env QA
